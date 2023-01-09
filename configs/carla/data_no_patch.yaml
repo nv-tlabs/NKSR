@@ -1,0 +1,6 @@
+include_configs:
+  - data.yaml
+
+_carla_base_path: "../data/carla-lidar/dataset-no-patch"
+_carla_input_path: "../data/carla-lidar/dataset-p1n2-no-patch"
+_carla_transforms: []

@@ -1,0 +1,9 @@
+include_configs:
+  - data.yaml
+
+name: 'carla/full'
+
+adaptive_depth: 2
+
+udf:
+  enabled: true

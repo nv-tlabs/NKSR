@@ -1,0 +1,6 @@
+wandb:
+  user: ""
+  base: "./wandb/"
+tb:
+  base: "./tb/"
+test_path: "./test/"
