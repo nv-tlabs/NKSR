@@ -23,6 +23,8 @@ class KitchenSinkMetricLoss:
         """
         base_coords, base_scales = [], []
         for d in range(svh.depth):
+            if svh.vdbs[d] is None:
+                continue
             ijk_coords = svh.vdbs[d].active_grid_coords()
             d_expand = expand if d != svh.depth - 1 else expand_top
             if d_expand >= 3:
