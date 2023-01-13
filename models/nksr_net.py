@@ -167,13 +167,14 @@ class Model(BaseModel):
         if self.trainer.logger is None:
             return
         with torch.no_grad():
-            reconstructor = out['reconstructor']
-            if reconstructor is None:
+            field = out['field']
+            if field is None:
                 return
 
             if not self.hparams.no_mesh_vis:
-                mesh = reconstructor.extract_multiscale_mesh(n_upsample=2)
-                self.log_geometry("pd_mesh", mesh, draw_color=self.hparams.color.enabled)
+                mesh_res = field.extract_dual_mesh()
+                mesh = vis.mesh(mesh_res.v, mesh_res.f)
+                self.log_geometry("pd_mesh", mesh)
 
     def should_use_pd_structure(self, is_val):
         # In case this returns True:
@@ -236,8 +237,8 @@ class Model(BaseModel):
         # self.log_dict(metric_dict)
 
         field = out['field']
-        mesh_v, mesh_f = field.extract_dual_mesh(n_upsample=self.hparams.test_n_upsample)
-        mesh = vis.mesh(mesh_v, mesh_f)
+        mesh_res = field.extract_dual_mesh(n_upsample=self.hparams.test_n_upsample)
+        mesh = vis.mesh(mesh_res.v, mesh_res.f)
 
         if DS.GT_GEOMETRY in batch.keys():
             ref_geometry = batch[DS.GT_GEOMETRY][0]
