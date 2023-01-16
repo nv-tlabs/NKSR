@@ -60,7 +60,7 @@ class Model(BaseModel):
         )
 
         if all([dec_svh.vdbs[d] is None for d in range(self.hparams.adaptive_depth)]):
-            if self.trainer.training:
+            if self.trainer.training or self.trainer.validating:
                 # In case training data is corrupted (pd & gt not aligned)...
                 exp.logger.warning("Empty vdb detected during training.")
                 return None
