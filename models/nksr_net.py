@@ -58,6 +58,13 @@ class Model(BaseModel):
             adaptive_depth=self.hparams.adaptive_depth,
             gt_decoder_svh=out.get('gt_svh', None)
         )
+
+        if all([dec_svh.vdbs[d] is None for d in range(self.hparams.adaptive_depth)]):
+            if self.trainer.training:
+                # In case training data is corrupted (pd & gt not aligned)...
+                exp.logger.warning("Empty vdb detected during training.")
+                return None
+
         out.update({'enc_svh': enc_svh, 'dec_svh': dec_svh, 'dec_tmp_svh': udf_svh})
         if self.trainer.training:
             SVH_CACHE.append([enc_svh, dec_svh, udf_svh])

@@ -132,7 +132,7 @@ class BaseModel(pl.LightningModule):
             return self.train_val_step(is_val=False, *args, **kwargs)
         except RuntimeError:
             # Compare to post-mortem, this would allow training to continue...
-            exp.logger.warning(f"Training-step OOM. Skipping.")
+            exp.logger.warning(f"Training-step Runtime Error. Skipping.")
             traceback.print_exc()
             gc.collect()
             torch.cuda.empty_cache()
@@ -145,7 +145,7 @@ class BaseModel(pl.LightningModule):
             return self.train_val_step(is_val=True, *args, **kwargs)
         except RuntimeError:
             # Compare to post-mortem, this would allow training to continue...
-            exp.logger.warning(f"Validation-step OOM. Skipping.")
+            exp.logger.warning(f"Validation-step Runtime Error. Skipping.")
             traceback.print_exc()
             gc.collect()
             torch.cuda.empty_cache()
