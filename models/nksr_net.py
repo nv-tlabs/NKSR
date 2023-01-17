@@ -62,7 +62,7 @@ class Model(BaseModel):
         if all([dec_svh.vdbs[d] is None for d in range(self.hparams.adaptive_depth)]):
             if self.trainer.training or self.trainer.validating:
                 # In case training data is corrupted (pd & gt not aligned)...
-                exp.logger.warning("Empty vdb detected during training.")
+                exp.logger.warning("Empty vdb detected during training/validation.")
                 return None
 
         out.update({'enc_svh': enc_svh, 'dec_svh': dec_svh, 'dec_tmp_svh': udf_svh})
@@ -206,7 +206,7 @@ class Model(BaseModel):
             out = self(batch, out)
 
         # OOM Guard.
-        if out is None and not is_val:
+        if out is None:
             return None
 
         with exp.pt_profile_named("loss"):
