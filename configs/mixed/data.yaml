@@ -1,0 +1,90 @@
+include_configs:
+  - ../shapenet/data.yaml
+  - ../carla/data.yaml
+
+# ShapeNet Configs
+_shapenet_transforms:
+  - name: "PointcloudNoise"
+    args: { "stddev": 0.0 }
+  - name: "FixedAxisRotation"
+    args: { "axis": 'x', 'deg_min': 90.0, 'deg_max': 90.0 }
+  - name: "BoundScale"
+    args: { "min_a": 2.0, "max_a": 4.0 }
+  - name: "UniformDensityFixedScaleSample"
+    args: { "voxel_size": 0.1, "min_density": 1.0, "max_density": 5.0 }
+
+# Matterport Configs
+_mp_transforms:
+  - name: "PointcloudNoise"
+    args: { "stddev": 0.0 }
+  - name: "FixedAxisRotation"
+    args: { "axis": 'x', 'deg_min': 90.0, 'deg_max': 90.0 }
+  - name: "BoundScale"
+    args: { "min_a": 5.0, "max_a": 10.0 }
+
+# Points2Surf Configs
+_abc_transforms:
+  - name: "BoundScale"
+    args: { "min_a": 2.0, "max_a": 4.0 }
+  - name: "UniformDensityFixedScaleSample"
+    args: { "voxel_size": 0.1, "min_density": 1.0, "max_density": 5.0 }
+
+train_dataset: CombinedDataset
+train_val_num_workers: 4
+train_kwargs:
+  config_list:
+    - dataset: ShapeNetDataset
+      subsample: 0.1
+      kwargs:
+        onet_base_path: ${_shapenet_path}
+        categories: ${_shapenet_categories}
+        transforms: ${_shapenet_transforms}
+        split: "train"
+        random_seed: 0
+    - dataset: AVDataset
+      kwargs:
+        base_path: ${_carla_base_path}
+        input_path: ${_carla_input_path}
+        drives: ${_carla_drives}
+        transforms: ${_carla_transforms}
+        split: "train"
+        custom_name: "carla"
+        random_seed: 0
+    - dataset: MatterportDataset
+      kwargs:
+        base_path: "../data/matterport"
+        transforms: ${_mp_transforms}
+        split: "train"
+        random_seed: 0
+    - dataset: Points2SurfDataset
+      kwargs:
+        base_path: "../data/points2surf"
+        dataset_name: "train"
+        type_name: "var-n"
+        transforms: ${_abc_transforms}
+        split: "train"
+        random_seed: 0
+
+val_dataset: CombinedDataset
+val_kwargs:
+  config_list:
+    - dataset: AVDataset
+      kwargs:
+        base_path: ${_carla_base_path}
+        input_path: ${_carla_input_path}
+        drives: ${_carla_drives}
+        transforms: ${_carla_transforms}
+        custom_name: "carla"
+        split: "val"
+        random_seed: "fixed"
+
+test_dataset: AVDataset
+test_num_workers: 4
+test_kwargs:
+  base_path: ${_carla_base_path}
+  input_path: ${_carla_input_path}
+  drives: ${_carla_drives}
+  transforms: ${_carla_transforms}
+  split: "test"
+  custom_name: "carla"
+  random_seed: "fixed"
