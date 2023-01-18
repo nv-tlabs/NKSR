@@ -35,7 +35,7 @@ class KitchenSinkMetricLoss:
                               mc_offsets.unsqueeze(0)).view(-1, 3)
                 ijk_coords = torch.unique(ijk_coords, dim=0)
             base_coords.append(svh.vdbs[d].grid_to_world(ijk_coords.float()))
-            base_scales.append(torch.full((ijk_coords.size(0), ), svh.vdbs[d].voxel_size(), device=svh.device))
+            base_scales.append(torch.full((ijk_coords.size(0), ), svh.vdbs[d].voxel_size, device=svh.device))
         base_coords, base_scales = torch.cat(base_coords), torch.cat(base_scales)
         local_ids = (torch.rand((n_samples, ), device=svh.device) * base_coords.size(0)).long()
         local_coords = (torch.rand((n_samples, 3), device=svh.device) - 0.5) * base_scales[local_ids, None]
