@@ -69,25 +69,36 @@ class Model(BaseModel):
         if self.trainer.training:
             SVH_CACHE.append([enc_svh, dec_svh, udf_svh])
 
-        output_field = KernelField(
-            svh=dec_svh,
-            interpolator=self.network.interpolators,
-            features=feat.basis_features,
-            approx_kernel_grad=False
-        )
-        if self.hparams.solver_verbose:
-            output_field.solver_config['verbose'] = True
+        if self.hparams.geometry == 'kernel':
+            output_field = KernelField(
+                svh=dec_svh,
+                interpolator=self.network.interpolators,
+                features=feat.basis_features,
+                approx_kernel_grad=False
+            )
+            if self.hparams.solver_verbose:
+                output_field.solver_config['verbose'] = True
 
-        normal_xyz = torch.cat([dec_svh.get_voxel_centers(d) for d in range(self.hparams.adaptive_depth)])
-        normal_value = torch.cat([feat.normal_features[d] for d in range(self.hparams.adaptive_depth)])
-        output_field.solve(
-            pos_xyz=input_xyz,
-            normal_xyz=normal_xyz,
-            normal_value=-normal_value,
-            pos_weight=self.hparams.solver.pos_weight / input_xyz.size(0),
-            normal_weight=self.hparams.solver.normal_weight / normal_xyz.size(0),
-            reg_weight=1.0
-        )
+            normal_xyz = torch.cat([dec_svh.get_voxel_centers(d) for d in range(self.hparams.adaptive_depth)])
+            normal_value = torch.cat([feat.normal_features[d] for d in range(self.hparams.adaptive_depth)])
+            output_field.solve(
+                pos_xyz=input_xyz,
+                normal_xyz=normal_xyz,
+                normal_value=-normal_value,
+                pos_weight=self.hparams.solver.pos_weight / input_xyz.size(0),
+                normal_weight=self.hparams.solver.normal_weight / normal_xyz.size(0),
+                reg_weight=1.0
+            )
+
+        elif self.hparams.geometry == 'neural':
+            output_field = NeuralField(
+                svh=dec_svh,
+                decoder=self.network.sdf_decoder,
+                features=feat.basis_features
+            )
+
+        else:
+            raise NotImplementedError
 
         if self.hparams.udf.enabled:
             mask_field = NeuralField(
@@ -244,7 +255,7 @@ class Model(BaseModel):
         # self.log_dict(metric_dict)
 
         field = out['field']
-        mesh_res = field.extract_dual_mesh(n_upsample=self.hparams.test_n_upsample)
+        mesh_res = field.extract_dual_mesh(grid_upsample=self.hparams.test_n_upsample)
         mesh = vis.mesh(mesh_res.v, mesh_res.f)
 
         if DS.GT_GEOMETRY in batch.keys():
