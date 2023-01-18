@@ -38,7 +38,7 @@ if __name__ == '__main__':
     known_args = parser.parse_known_args()[0]
     args_ckpt = known_args.ckpt
     if args_ckpt.startswith("wdb:"):
-        wdb_run, args_ckpt = wdb.get_wandb_run(args_ckpt, wdb_base=known_args.wandb_base, default_ckpt="test_auto")
+        wdb_run, args_ckpt = wdb.get_wandb_run(args_ckpt, wdb_base=zeus.config.wandb.base, default_ckpt="test_auto")
         assert args_ckpt is not None, "Please specify checkpoint version!"
         assert args_ckpt.exists(), "Selected checkpoint does not exist!"
         model_args = omegaconf.OmegaConf.create(wdb.recover_from_wandb_config(wdb_run.config))
