@@ -1,0 +1,19 @@
+include_configs:
+  - ../shapenet/data.yaml
+
+_shapenet_categories: ['03001627']
+_shapenet_transforms:
+  - name: "PointcloudNoise"
+    args: { "stddev": 0.005 }
+  - name: "SubsamplePointcloud"
+    args: { "N": 3000 }
+_shapenet_custom_name: "chair-noise3k"
+
+name: 'shapenet/noise_3k'
+
+voxel_size: 0.02
+kernel_dim: 16
+
+interpolator:
+  n_hidden: 2
+  hidden_dim: 32
