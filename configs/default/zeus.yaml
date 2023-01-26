@@ -1,6 +1,8 @@
 wandb:
   user: ""
   base: "./wandb/"
+  upload: "<REMOTE>:<PATH>"
 tb:
   base: "./tb/"
+  upload: "<REMOTE>:<PATH>"
 test_path: "./test/"
