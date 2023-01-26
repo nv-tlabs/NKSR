@@ -10,7 +10,9 @@ _shapenet_transforms:
 _shapenet_custom_name: "chair-noise3k"
 
 name: 'shapenet/noise_3k'
-
+solver:
+  pos_weight: 100.0
+  normal_weight: 100.0
 voxel_size: 0.02
 kernel_dim: 16
 
