@@ -24,3 +24,6 @@ test_n_upsample: 2
 
 # Use gt structure during testing (useful for overfit debugging)
 test_use_gt_structure: false
+
+# Test-time transform (for generalization experiments)
+test_transform: null

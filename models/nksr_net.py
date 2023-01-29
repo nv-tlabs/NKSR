@@ -1,16 +1,21 @@
 import gc
 import random
+from typing import Optional
 
 import torch
+import numpy as np
 from nksr import NKSRNetwork, SparseFeatureHierarchy
 from nksr.fields import KernelField, NeuralField, LayerField
 from pycg import exp, vis
 
 from dataset.base import DatasetSpec as DS, list_collate
 from models.base_model import BaseModel
+from pycg.isometry import ScaledIsometry
+
 
 # Cache SVH during training, as backward also needs them.
 #   (this is due to the intrusive_ptr in ctx of FVDB only stores the pointer)
+
 SVH_CACHE = []
 
 
@@ -240,10 +245,15 @@ class Model(BaseModel):
         return loss_sum
 
     def test_step(self, batch, batch_idx):
+        test_transform, test_inv_transform = None, None
+        if self.hparams.test_transform is not None:
+            test_transform = ScaledIsometry.from_matrix(np.array(self.hparams.test_transform))
+            test_inv_transform = test_transform.inv()
+
         self.log('source', batch[DS.SHAPE_NAME][0])
 
-        input_pc = batch[DS.INPUT_PC][0]
         out = {'idx': batch_idx}
+        self.transform_batch_input(batch, test_transform)
 
         if self.hparams.test_use_gt_structure:
             self.compute_gt_svh(batch, out)
@@ -257,6 +267,10 @@ class Model(BaseModel):
         field = out['field']
         mesh_res = field.extract_dual_mesh(grid_upsample=self.hparams.test_n_upsample)
         mesh = vis.mesh(mesh_res.v, mesh_res.f)
+
+        self.transform_batch_input(batch, test_inv_transform)
+        if test_inv_transform is not None:
+            mesh = test_inv_transform @ mesh
 
         if DS.GT_GEOMETRY in batch.keys():
             ref_geometry = batch[DS.GT_GEOMETRY][0]
@@ -281,6 +295,8 @@ class Model(BaseModel):
             self.log_dict(eval_dict)
             exp.logger.info("Metric: " + ", ".join([f"{k} = {v:.4f}" for k, v in eval_dict.items()]))
 
+        input_pc = batch[DS.INPUT_PC][0]
+
         if self.record_folder is not None:
             # Record also input for comparison.
             self.test_log_data({
@@ -297,6 +313,16 @@ class Model(BaseModel):
                 viewport_shading='NORMAL', cam_path=f"../cameras/{self.get_dataset_short_name()}.bin"
             )
             self.overfit_logger.log_overfit_visuals({'scene': scenes[0]})
+
+    @classmethod
+    def transform_batch_input(cls, batch, transform: Optional[ScaledIsometry]):
+        if transform is None:
+            return
+        batch[DS.INPUT_PC][0] = transform @ batch[DS.INPUT_PC][0]
+        if DS.TARGET_NORMAL in batch:
+            batch[DS.TARGET_NORMAL][0] = transform.rotation @ batch[DS.TARGET_NORMAL][0]
+        if DS.INPUT_SENSOR_POS in batch:
+            batch[DS.INPUT_SENSOR_POS][0] = transform @ batch[DS.INPUT_SENSOR_POS][0]
 
     def get_dataset_spec(self):
         all_specs = [DS.SHAPE_NAME, DS.INPUT_PC,

@@ -1,0 +1,42 @@
+_mp_transforms:
+  - name: "SubsamplePointcloud"
+    args: { "N": 10000 }
+_mp_partial_input: false
+
+train_dataset: MatterportDataset
+train_val_num_workers: 4
+train_kwargs:
+  base_path: "../data/matterport"
+  transforms: ${_mp_transforms}
+  split: "train"
+  custom_name: "matterport"
+  random_seed: 0
+  partial_input: ${_mp_partial_input}
+
+val_dataset: MatterportDataset
+val_kwargs:
+  base_path: "../data/matterport"
+  transforms: ${_mp_transforms}
+  split: "val"
+  custom_name: "matterport"
+  random_seed: "fixed"
+  partial_input: ${_mp_partial_input}
+
+test_dataset: MatterportDataset
+test_num_workers: 4
+test_kwargs:
+  base_path: "../data/matterport"
+  transforms: ${_mp_transforms}
+  split: "test"
+  custom_name: "matterport"
+  random_seed: "fixed"
+  partial_input: ${_mp_partial_input}
+
+test_transform: [
+  [2.0, 0.0, 0.0, 0.0],
+  [0.0, 2.0, 0.0, 0.0],
+  [0.0, 0.0, 2.0, 0.0],
+  [0.0, 0.0, 0.0, 1.0],
+]
+
+test_n_upsample: 3
