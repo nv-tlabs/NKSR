@@ -86,7 +86,7 @@ class Model(BaseModel):
 
             normal_xyz = torch.cat([dec_svh.get_voxel_centers(d) for d in range(self.hparams.adaptive_depth)])
             normal_value = torch.cat([feat.normal_features[d] for d in range(self.hparams.adaptive_depth)])
-            output_field.solve(
+            output_field.solve_non_fused(
                 pos_xyz=input_xyz,
                 normal_xyz=normal_xyz,
                 normal_value=-normal_value,
