@@ -188,7 +188,7 @@ class BaseModel(pl.LightningModule):
                                  lambda_lr_wrapper, lr_config=lr_config, batch_size=self.hparams.batch_size))
         return [optimizer], [{'scheduler': scheduler, 'interval': 'step'}]
 
-    def on_train_batch_start(self, batch: Any, batch_idx: int, dataloader_idx: int):
+    def on_train_batch_start(self, batch: Any, batch_idx: int):
         exp.global_var_manager.set('skip_backward', False)
 
     def on_after_backward(self):

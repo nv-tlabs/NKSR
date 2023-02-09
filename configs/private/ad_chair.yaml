@@ -1,0 +1,37 @@
+train_dataset: CustomizedDataset
+train_val_num_workers: 4
+train_kwargs:
+  data:
+    - list: "/workspace/anchored-diffusion/data/nksr-train/03001627/train.txt"
+  transforms: ${_ad_transforms}
+  random_seed: 0
+
+val_dataset: CustomizedDataset
+val_kwargs:
+  data:
+    - list: "/workspace/anchored-diffusion/data/nksr-train/03001627/val.txt"
+  transforms: ${_ad_transforms}
+  random_seed: "fixed"
+
+test_dataset: CustomizedDataset
+test_num_workers: 4
+test_kwargs:
+  data:
+    - list: "/workspace/anchored-diffusion/data/nksr-train/03001627/test.txt"
+  transforms: ${_ad_transforms}
+  random_seed: "fixed"
+
+
+_ad_transforms:
+  - name: "SubsamplePointcloud"
+    args: { "N": 3000 }
+
+name: 'ad/chair_ae_3k'
+
+voxel_size: 0.015
+kernel_dim: 16
+feature: none
+
+interpolator:
+  n_hidden: 2
+  hidden_dim: 32

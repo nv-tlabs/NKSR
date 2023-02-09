@@ -25,7 +25,7 @@ interpolator:
   hidden_dim: 16
 
 solver:
-  pos_weight: 100.0
+  pos_weight: 10000.0
   normal_weight: 100.0
 
 # -- Training & Supervision parameters --
