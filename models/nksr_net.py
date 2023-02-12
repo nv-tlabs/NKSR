@@ -46,7 +46,7 @@ class Model(BaseModel):
             depth=self.hparams.tree_depth,
             device=self.device
         )
-        enc_svh.build_iterative_coarsening(input_xyz)
+        enc_svh.build_point_splatting(input_xyz)
 
         # Compute density by computing points per voxel.
         if self.hparams.runtime_density:

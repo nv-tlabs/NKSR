@@ -1,0 +1,18 @@
+include_configs:
+  - ad_chair.yaml
+
+test_dataset: CustomizedDataset
+test_num_workers: 4
+test_kwargs:
+  data:
+    - list: "/workspace/anchored-diffusion/data/gen_out_tmp/list.txt"
+  transforms: ${_ad_transforms}
+  random_seed: "fixed"
+
+test_transform: [
+  [0.15, 0.0, 0.0, 0.0],
+  [0.0, 0.15, 0.0, 0.0],
+  [0.0, 0.0, 0.15, 0.0],
+  [0.0, 0.0, 0.0, 1.0],
+]
+
