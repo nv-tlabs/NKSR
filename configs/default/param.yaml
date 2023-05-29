@@ -27,3 +27,6 @@ test_use_gt_structure: false
 
 # Test-time transform (for generalization experiments)
 test_transform: null
+
+# Load ckpt from URL.
+url: ''

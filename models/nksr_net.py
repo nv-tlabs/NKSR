@@ -6,6 +6,8 @@ import torch
 import numpy as np
 from nksr import NKSRNetwork, SparseFeatureHierarchy
 from nksr.fields import KernelField, NeuralField, LayerField
+from nksr.configs import load_checkpoint_from_url
+
 from pycg import exp, vis
 
 from dataset.base import DatasetSpec as DS, list_collate
@@ -23,6 +25,9 @@ class Model(BaseModel):
     def __init__(self, hparams):
         super().__init__(hparams)
         self.network = NKSRNetwork(self.hparams)
+        if self.hparams.url:
+            ckpt_data = load_checkpoint_from_url(self.hparams.url)
+            self.network.load_state_dict(ckpt_data['state_dict'])
 
     @exp.mem_profile(every=1)
     def forward(self, batch, out: dict):

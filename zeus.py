@@ -15,8 +15,7 @@ import shutil
 from pathlib import Path
 from pycg import exp
 from torch.nn import DataParallel
-from pytorch_lightning.callbacks.base import Callback
-from pytorch_lightning.plugins.training_type.dp import DataParallelPlugin
+from pytorch_lightning.callbacks import Callback
 
 # Read configuration
 default_config_dir = Path(__file__).parent / "configs" / "default"
@@ -50,18 +49,6 @@ class CustomizedDataParallel(DataParallel):
         inputs = tuple(inputs)
         kwargs = tuple(kwargs)
         return inputs, kwargs
-
-
-class CustomizedDataParallelPlugin(DataParallelPlugin):
-    def __init__(self, parallel_devices: Optional[List[torch.device]]):
-        # Parallel devices will be later populated in accelerator. Well done!
-        super().__init__(parallel_devices=parallel_devices)
-
-    def setup(self, model):
-        from pytorch_lightning.overrides.data_parallel import LightningParallelModule
-        # model needs to be moved to the device before it is wrapped
-        model.to(self.root_device)
-        self._model = CustomizedDataParallel(LightningParallelModule(model), self.parallel_devices)
 
 
 class OverfitLoggerNull:

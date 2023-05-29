@@ -25,7 +25,6 @@ from pycg import exp, wdb
 from pytorch_lightning.callbacks import ModelCheckpoint, LearningRateMonitor
 
 from pytorch_lightning.loggers import TensorBoardLogger, WandbLogger
-from pytorch_lightning.plugins import DDPPlugin
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
 
 
@@ -148,14 +147,6 @@ if __name__ == '__main__':
     lr_record_callback = LearningRateMonitor(logging_interval='step')
     copy_model_file_callback = zeus.CopyModelFileCallback()
 
-    # Determine parallel plugin:
-    if program_args.accelerator == 'ddp':
-        accelerator_plugins = [DDPPlugin(find_unused_parameters=True)]
-    elif program_args.accelerator == 'dp':
-        accelerator_plugins = [zeus.CustomizedDataParallelPlugin(None)]
-    else:
-        accelerator_plugins = []
-
     """""""""""""""""""""""""""""""""""""""""""""""
     [2] Determine model arguments
         MODEL args include: --lr, --num_layers, etc. (everything defined in YAML)
@@ -253,7 +244,7 @@ if __name__ == '__main__':
         log_every_n_steps=20,
         check_val_every_n_epoch=1,
         auto_select_gpus=True,
-        plugins=accelerator_plugins,
+        strategy=program_args.get("strategy", None),
         accumulate_grad_batches=model_args.accumulate_grad_batches)
     net_module = importlib.import_module("models." + model_args.model).Model
     net_model = net_module(model_args)

@@ -71,12 +71,12 @@ python upload_ckpt.py <WDB-URL>:<CKPT-ID>
 
 ### WANDB Sweep
 
-To run hyperparameter sweep, first write a config file like `sweeps/*.yaml`. Then run on `ws`:
+To run hyperparameter sweep, first write a config file like `sweeps/*.yaml`. Then run on the local machine (master):
 ```shell
 wandb sweep sweeps/<CONFIG>.yaml
 ```
 
-Then, on NGC, run:
+Then, on the remote cluster, run:
 ```shell
 CUDA_VISIBLE_DEVICES=... wandb agent <SWEEP-ID> --count 1
 ```
@@ -84,11 +84,15 @@ where `count` specifies how many jobs should this agent run.
 Agents will ask for job from the wandb server to run.
 It will call our training script with `--exec` set.
 
+<!---
+
 Alternatively, the following summarizes the `ngman -> jupyter -> jn -> git pull -> run agent` step chain.
 ```shell
 ngman remote sh --type 32g.7 --sweep <SWEEP-ID>
 ```
 where `SWEEP-ID` is something like `huangjh/nkfw-shapenet/j9bbtcm1`.
+
+-->
 
 ## Configuration
 

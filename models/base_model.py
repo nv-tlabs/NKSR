@@ -28,7 +28,6 @@ from pycg import exp, image
 from pycg.exp import AverageMeter
 from torch.optim.lr_scheduler import LambdaLR
 from torch.utils.data import DataLoader
-from torch.utils.tensorboard.summary import hparams
 
 
 exp.global_var_manager.register_variable('skip_backward', False)
@@ -227,6 +226,8 @@ class BaseModel(pl.LightningModule):
         if self.trainer.logger is None:
             return
         if self.logger_type == 'tb':
+            from torch.utils.tensorboard.summary import hparams
+
             writer = self.trainer.logger.experiment._get_file_writer()
             if writer is not None:
                 hparams_metrics = {}
