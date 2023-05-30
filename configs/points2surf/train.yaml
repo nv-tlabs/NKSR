@@ -4,7 +4,7 @@ include_configs:
 name: 'abc/full'
 
 adaptive_depth: 2
-voxel_size: 0.02
+voxel_size: 0.015
 
 udf:
   enabled: true

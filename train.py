@@ -1,3 +1,11 @@
+# Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+#
+# NVIDIA CORPORATION & AFFILIATES and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION & AFFILIATES is strictly prohibited.
+
 """
 This file is part of the Zeus deep learning library.
     train.py is mainly used to start a long training process (probably on server).
@@ -244,7 +252,6 @@ if __name__ == '__main__':
         log_every_n_steps=20,
         check_val_every_n_epoch=1,
         auto_select_gpus=True,
-        strategy=program_args.get("strategy", None),
         accumulate_grad_batches=model_args.accumulate_grad_batches)
     net_module = importlib.import_module("models." + model_args.model).Model
     net_model = net_module(model_args)

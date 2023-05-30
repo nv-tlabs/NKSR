@@ -1,3 +1,11 @@
+# Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+#
+# NVIDIA CORPORATION & AFFILIATES and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION & AFFILIATES is strictly prohibited.
+
 import gc
 import random
 from typing import Optional
@@ -16,7 +24,7 @@ from pycg.isometry import ScaledIsometry
 
 
 # Cache SVH during training, as backward also needs them.
-#   (this is due to the intrusive_ptr in ctx of FVDB only stores the pointer)
+#   (this is due to the intrusive_ptr in ctx only stores the pointer)
 
 SVH_CACHE = []
 
@@ -69,10 +77,10 @@ class Model(BaseModel):
             gt_decoder_svh=out.get('gt_svh', None)
         )
 
-        if all([dec_svh.vdbs[d] is None for d in range(self.hparams.adaptive_depth)]):
+        if all([dec_svh.grids[d] is None for d in range(self.hparams.adaptive_depth)]):
             if self.trainer.training or self.trainer.validating:
                 # In case training data is corrupted (pd & gt not aligned)...
-                exp.logger.warning("Empty vdb detected during training/validation.")
+                exp.logger.warning("Empty grid detected during training/validation.")
                 return None
 
         out.update({'enc_svh': enc_svh, 'dec_svh': dec_svh, 'dec_tmp_svh': udf_svh})
@@ -91,12 +99,15 @@ class Model(BaseModel):
 
             normal_xyz = torch.cat([dec_svh.get_voxel_centers(d) for d in range(self.hparams.adaptive_depth)])
             normal_value = torch.cat([feat.normal_features[d] for d in range(self.hparams.adaptive_depth)])
+
+            normal_weight = self.hparams.solver.normal_weight / normal_xyz.size(0) * \
+                (self.hparams.voxel_size ** 2)
             output_field.solve_non_fused(
                 pos_xyz=input_xyz,
                 normal_xyz=normal_xyz,
                 normal_value=-normal_value,
                 pos_weight=self.hparams.solver.pos_weight / input_xyz.size(0),
-                normal_weight=self.hparams.solver.normal_weight / normal_xyz.size(0),
+                normal_weight=normal_weight,
                 reg_weight=1.0
             )
 
@@ -288,7 +299,7 @@ class Model(BaseModel):
             from metrics import MeshEvaluator
 
             evaluator = MeshEvaluator(
-                n_points=int(5e6) if ref_geometry is not None else int(1e5),
+                n_points=int(5e6) if ref_geometry is not None else int(5e5),
                 metric_names=MeshEvaluator.ESSENTIAL_METRICS)
             onet_samples = None
             if DS.GT_ONET_SAMPLE in batch:

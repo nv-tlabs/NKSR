@@ -26,7 +26,7 @@ interpolator:
 
 solver:
   pos_weight: 10000.0
-  normal_weight: 100.0
+  normal_weight: 10000.0
 
 # -- Training & Supervision parameters --
 

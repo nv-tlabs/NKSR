@@ -1,3 +1,11 @@
+# Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+#
+# NVIDIA CORPORATION & AFFILIATES and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION & AFFILIATES is strictly prohibited.
+
 import ext
 
 import torch
@@ -23,9 +31,9 @@ class KitchenSinkMetricLoss:
         """
         base_coords, base_scales = [], []
         for d in range(svh.depth):
-            if svh.vdbs[d] is None:
+            if svh.grids[d] is None:
                 continue
-            ijk_coords = svh.vdbs[d].active_grid_coords()
+            ijk_coords = svh.grids[d].active_grid_coords()
             d_expand = expand if d != svh.depth - 1 else expand_top
             if d_expand >= 3:
                 mc_offsets = torch.arange(-d_expand // 2 + 1, d_expand // 2 + 1, device=svh.device)
@@ -34,8 +42,8 @@ class KitchenSinkMetricLoss:
                 ijk_coords = (ijk_coords.unsqueeze(dim=1).repeat(1, mc_offsets.size(0), 1) +
                               mc_offsets.unsqueeze(0)).view(-1, 3)
                 ijk_coords = torch.unique(ijk_coords, dim=0)
-            base_coords.append(svh.vdbs[d].grid_to_world(ijk_coords.float()))
-            base_scales.append(torch.full((ijk_coords.size(0), ), svh.vdbs[d].voxel_size, device=svh.device))
+            base_coords.append(svh.grids[d].grid_to_world(ijk_coords.float()))
+            base_scales.append(torch.full((ijk_coords.size(0), ), svh.grids[d].voxel_size, device=svh.device))
         base_coords, base_scales = torch.cat(base_coords), torch.cat(base_scales)
         local_ids = (torch.rand((n_samples, ), device=svh.device) * base_coords.size(0)).long()
         local_coords = (torch.rand((n_samples, 3), device=svh.device) - 0.5) * base_scales[local_ids, None]
@@ -144,7 +152,7 @@ class StructureLoss(KitchenSinkMetricLoss):
             for feat_depth, struct_feat in out['structure_features'].items():
                 if struct_feat.size(0) == 0:
                     continue
-                gt_status = gt_svh.evaluate_voxel_status(out['dec_tmp_svh'].vdbs[feat_depth], feat_depth)
+                gt_status = gt_svh.evaluate_voxel_status(out['dec_tmp_svh'].grids[feat_depth], feat_depth)
                 loss_dict.add_loss(f"struct-{feat_depth}", F.cross_entropy(struct_feat, gt_status),
                                    hparams.supervision.structure_weight)
                 if compute_metric:

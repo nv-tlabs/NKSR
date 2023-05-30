@@ -39,7 +39,7 @@ dependencies:
   - omegaconf
   - flatten-dict
   - pip:
-    - python-pycg
+    - -f https://pycg.s3.ap-northeast-1.amazonaws.com/packages/index.html
+    - python-pycg[full]==0.5.2
     - randomname
-    - open3d
     - pykdtree
