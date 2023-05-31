@@ -168,3 +168,4 @@ wandb/
 wdb_sweep.py
 
 zeus_config.yaml
+assets/buda.ply
