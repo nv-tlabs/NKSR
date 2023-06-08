@@ -42,6 +42,9 @@ conda env create
 
 # Activate it
 conda activate nksr
+
+# Install NKSR
+pip install nksr -f https://nksr.s3.ap-northeast-1.amazonaws.com/whl/torch-2.0.0%2Bcu118.html
 ```
 
 > For docker users, we suggest using a base image from [nvidia/cuda](https://hub.docker.com/r/nvidia/cuda) with tag `12.1.1-cudnn8-devel-ubuntu22.04`, and applying the above conda setup over it.
