@@ -122,4 +122,11 @@ Please see live example by running `python examples/recons_by_chunk.py`.
 Another example that reconstructs a Waymo sequence is at `python examples/recons_waymo.py`.
 <img src="assets/example_waymo.png"  width="30%">
 
+### Dealing with Noise
+
+TODO: 
+1. Use ScanNet noisy dataset
+2. Provide instructions on `detail_level` and `voxel_size`.
+3. Provide visualizations on how to tune these parameters.
+
 > To prevent OOM, one last resort is to add `PYTORCH_NO_CUDA_MEMORY_CACHING=1` as environment variable!
