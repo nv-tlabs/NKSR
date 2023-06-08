@@ -10,6 +10,7 @@ import numpy as np
 import requests
 from pathlib import Path
 from pycg import vis, exp
+from pyntcloud import PyntCloud
 
 
 def load_bunny_example():
@@ -37,6 +38,23 @@ def load_buda_example():
     buda_geom = vis.from_file(buda_path)
     buda_geom.scale(50.0, center=np.zeros(3))
     return buda_geom
+
+
+def load_waymo_example():
+    waymo_path = Path(__file__).parent.parent / "assets" / "waymo-pcd.ply"
+
+    if not waymo_path.exists():
+        exp.logger.info("Downloading assets...")
+        res = requests.get("https://nksr.s3.ap-northeast-1.amazonaws.com/waymo-pcd.ply")
+        with open(waymo_path, "wb") as f:
+            f.write(res.content)
+        exp.logger.info("Download finished!")
+
+    pcloud = PyntCloud.from_file(str(waymo_path))
+    pdata = pcloud.points
+    xyz = np.stack([pdata['x'], pdata['y'], pdata['z']], axis=1)
+    sensor = np.stack([pdata['sensor_x'], pdata['sensor_y'], pdata['sensor_z']], axis=1)
+    return xyz, sensor
 
 
 def warning_on_low_memory(threshold_mb: float):

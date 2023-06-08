@@ -26,7 +26,7 @@ For business inquiries, please visit our website and submit the form: [NVIDIA Re
 
 ## News
 
-- 2023-06-02: Code released!
+- 2023-06-08: Code released!
 
 ## Environment setup
 

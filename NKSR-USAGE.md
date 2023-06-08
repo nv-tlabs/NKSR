@@ -114,8 +114,12 @@ mesh = field.extract_dual_mesh()
 from pycg import vis
 vis.show_3d([vis.mesh(mesh.v, mesh.f)])
 ```
+
 Please see live example by running `python examples/recons_by_chunk.py`.
 
 <img src="assets/example_buda.png"  width="30%">
+
+Another example that reconstructs a Waymo sequence is at `python examples/recons_waymo.py`.
+<img src="assets/example_waymo.png"  width="30%">
 
 > To prevent OOM, one last resort is to add `PYTORCH_NO_CUDA_MEMORY_CACHING=1` as environment variable!
