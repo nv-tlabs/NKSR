@@ -2,8 +2,6 @@
 
 ![NKSR](assets/teaser.png)
 
-[![PyPI version](https://badge.fury.io/py/nksr.svg)](https://badge.fury.io/py/nksr)
-
 **Neural Kernel Surface Reconstruction**<br>
 [Jiahui Huang](https://huangjh-pub.github.io/),
 [Zan Gojcic](https://zgojcic.github.io/),
