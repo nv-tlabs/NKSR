@@ -87,8 +87,6 @@ Data download links:
 - Points2Surf: Data is available [here](). We've used blensor to re-generate all the data following the original script in order to obtain input normals.
 - CARLA: Data is available [here]().
 
-> We are pending approval for the latter two datasets from the company. Stay tuned!
-
 The main training script is `train.py`. We provide different config files for the different datasets we've benchmarked in our paper:
 ```bash
 # ShapeNet small noise 1K input
