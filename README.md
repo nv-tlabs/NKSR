@@ -2,8 +2,6 @@
 
 ![NKSR](assets/teaser.png)
 
-[![PyPI version](https://badge.fury.io/py/nksr.svg)](https://badge.fury.io/py/nksr)
-
 **Neural Kernel Surface Reconstruction**<br>
 [Jiahui Huang](https://huangjh-pub.github.io/),
 [Zan Gojcic](https://zgojcic.github.io/),
@@ -11,7 +9,7 @@
 [Or Litany](https://orlitany.github.io/), 
 [Sanja Fidler](https://www.cs.toronto.edu/~fidler/),
 [Francis Williams](https://www.fwilliams.info/) <br>
-**[Paper](https://huangjh-pub.github.io/publication/nksr/paper.pdf), [Project Page](https://research.nvidia.com/labs/toronto-ai/NKSR/)**
+**[Paper](https://arxiv.org/abs/2305.19590), [Project Page](https://research.nvidia.com/labs/toronto-ai/NKSR/)**
 
 Abstract: *We present a novel method for reconstructing a 3D implicit surface from a large-scale, sparse, and noisy point cloud. 
 Our approach builds upon the recently introduced [Neural Kernel Fields (NKF)](https://nv-tlabs.github.io/nkf/) representation. 
@@ -34,7 +32,7 @@ We recommend using the latest Python and PyTorch to run our algorithm. To instal
 
 ```bash
 # Clone the repository
-git clone git@github.com:nv-tlabs/nksr
+git clone git@github.com:nv-tlabs/nksr.git
 cd nksr
 
 # Create conda environment
@@ -47,7 +45,7 @@ conda activate nksr
 pip install nksr -f https://nksr.huangjh.tech/whl/torch-2.0.0+cu118.html
 ```
 
-> For docker users, we suggest using a base image from [nvidia/cuda](https://hub.docker.com/r/nvidia/cuda) with tag `12.1.1-cudnn8-devel-ubuntu22.04`, and applying the above conda setup over it.
+> For docker users, we suggest using a base image from [nvidia/cuda](https://hub.docker.com/r/nvidia/cuda) with tag `11.8.0-cudnn8-devel-ubuntu22.04`, and applying the above conda setup over it.
 
 ## Testing NKSR on your own data
 
@@ -83,7 +81,7 @@ Modify the contents of `zeus_config.yaml` as needed to include your `wandb` acco
 ### Training
 
 Data download links:
-- ShapeNet: Data is available [here](https://s3.eu-central-1.amazonaws.com/avg-projects/occupancy_networks/data/dataset_small_v1.1.zip). Put the extracted `onet` folder under `../data/shapenet`.
+- ShapeNet: Data is available [here](https://s3.eu-central-1.amazonaws.com/avg-projects/occupancy_networks/data/dataset_small_v1.1.zip) (taken from [Occupancy Networks](https://github.com/autonomousvision/occupancy_networks)). Put the extracted `onet` folder under `../data/shapenet`.
 - Points2Surf: Data is available [here](). We've used blensor to re-generate all the data following the original script in order to obtain input normals.
 - CARLA: Data is available [here]().
 
