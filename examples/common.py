@@ -13,6 +13,9 @@ from pycg import vis, exp
 from pyntcloud import PyntCloud
 
 
+DOWNLOAD_URL = "https://nksr.s3.ap-northeast-1.amazonaws.com"
+
+
 def load_bunny_example():
     bunny_path = Path(__file__).parent.parent / "assets" / "bunny.ply"
     bunny_geom = vis.from_file(bunny_path)
@@ -30,7 +33,7 @@ def load_buda_example():
 
     if not buda_path.exists():
         exp.logger.info("Downloading assets...")
-        res = requests.get("https://nksr.s3.ap-northeast-1.amazonaws.com/buda.ply")
+        res = requests.get(f"{DOWNLOAD_URL}/buda.ply")
         with open(buda_path, "wb") as f:
             f.write(res.content)
         exp.logger.info("Download finished!")
@@ -40,12 +43,26 @@ def load_buda_example():
     return buda_geom
 
 
+def load_scannet_example():
+    scannet_path = Path(__file__).parent.parent / "assets" / "scannet.ply"
+
+    if not scannet_path.exists():
+        exp.logger.info("Downloading assets...")
+        res = requests.get("{DOWNLOAD_URL}/scannet-rgbd.ply")
+        with open(scannet_path, "wb") as f:
+            f.write(res.content)
+        exp.logger.info("Download finished!")
+
+    scannet_geom = vis.from_file(scannet_path)
+    return scannet_geom
+
+
 def load_waymo_example():
     waymo_path = Path(__file__).parent.parent / "assets" / "waymo-pcd.ply"
 
     if not waymo_path.exists():
         exp.logger.info("Downloading assets...")
-        res = requests.get("https://nksr.s3.ap-northeast-1.amazonaws.com/waymo-pcd.ply")
+        res = requests.get("{DOWNLOAD_URL}/waymo-pcd.ply")
         with open(waymo_path, "wb") as f:
             f.write(res.content)
         exp.logger.info("Download finished!")

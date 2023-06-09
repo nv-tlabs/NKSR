@@ -124,9 +124,15 @@ Another example that reconstructs a Waymo sequence is at `python examples/recons
 
 ### Dealing with Noise
 
-TODO: 
-1. Use ScanNet noisy dataset
-2. Provide instructions on `detail_level` and `voxel_size`.
-3. Provide visualizations on how to tune these parameters.
+Real-world point cloud could contain different levels of noise, and it is important to tune the hyperparameters that balance noise and details.
+In NKSR this is achieved via two arguments of the `reconstruct` function, namely `detail_level` and `voxel_size`.
+The two arguments should be used exclusively. Specifically they have the following effects:
+
+1. `detail_level` is by default 0, and you can tune it from 0.0 to 1.0, where 0.0 contains the least detail but may be more robust towards noise, and 1.0 has the most details but could overfit to noise and leads to memory overflow.
+2. `voxel_size` is by default `None`, referring to the voxel size of the finest level in the sparse voxel hierarchy. The size should be roughly the standard deviation of your noise level. If this is provided, then `detail_level` will be ignored.
+
+A visualization of these parameters can be seen below. The example ScanNet point cloud can be downloaded by calling `load_scannet_example()` in `examples/common.py`.
+
+<img src="assets/example_scannet.png"  width="90%">
 
 > To prevent OOM, one last resort is to add `PYTORCH_NO_CUDA_MEMORY_CACHING=1` as environment variable!
