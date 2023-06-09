@@ -32,7 +32,7 @@ We recommend using the latest Python and PyTorch to run our algorithm. To instal
 
 ```bash
 # Clone the repository
-git clone git@github.com:nv-tlabs/nksr
+git clone git@github.com:nv-tlabs/nksr.git
 cd nksr
 
 # Create conda environment
@@ -45,7 +45,7 @@ conda activate nksr
 pip install nksr -f https://nksr.huangjh.tech/whl/torch-2.0.0+cu118.html
 ```
 
-> For docker users, we suggest using a base image from [nvidia/cuda](https://hub.docker.com/r/nvidia/cuda) with tag `12.1.1-cudnn8-devel-ubuntu22.04`, and applying the above conda setup over it.
+> For docker users, we suggest using a base image from [nvidia/cuda](https://hub.docker.com/r/nvidia/cuda) with tag `11.8.0-cudnn8-devel-ubuntu22.04`, and applying the above conda setup over it.
 
 ## Testing NKSR on your own data
 
