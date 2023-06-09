@@ -14,7 +14,7 @@ If you want to install the `nksr` package into other python environments, we pro
 
 Use the following command to install `nksr`.
 ```bash
-pip install -U nksr -f https://nksr.s3.ap-northeast-1.amazonaws.com/whl/torch-${TORCH_VERSION}%2B${CUDA_VERSION}.html
+pip install -U nksr -f https://nksr.huangjh.tech/whl/torch-${TORCH_VERSION}+${CUDA_VERSION}.html
 ```
 
 An example combination would be `TORCH_VERSION=2.0.0` and `CUDA_VERSION=cu118`.
