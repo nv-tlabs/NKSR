@@ -9,7 +9,7 @@
 [Or Litany](https://orlitany.github.io/), 
 [Sanja Fidler](https://www.cs.toronto.edu/~fidler/),
 [Francis Williams](https://www.fwilliams.info/) <br>
-**[Paper](https://huangjh-pub.github.io/publication/nksr/paper.pdf), [Project Page](https://research.nvidia.com/labs/toronto-ai/NKSR/)**
+**[Paper](https://arxiv.org/abs/2305.19590), [Project Page](https://research.nvidia.com/labs/toronto-ai/NKSR/)**
 
 Abstract: *We present a novel method for reconstructing a 3D implicit surface from a large-scale, sparse, and noisy point cloud. 
 Our approach builds upon the recently introduced [Neural Kernel Fields (NKF)](https://nv-tlabs.github.io/nkf/) representation. 
