@@ -68,7 +68,8 @@ def determine_usable_gpus():
     os.environ['CUDA_VISIBLE_DEVICES'] = selection_str
 
     if program_args.gpus > 1 and program_args.accelerator is None:
-        program_args.accelerator = 'ddp'
+        program_args.accelerator = 'gpu'
+        program_args.strategy = 'ddp'
 
 
 def is_rank_zero():
@@ -139,7 +140,8 @@ if __name__ == '__main__':
         determine_usable_gpus()
     else:
         # Align parameters.
-        program_args.accelerator = 'ddp'
+        program_args.accelerator = 'gpu'
+        program_args.strategy = 'ddp'
 
     # Profiling and debugging options
     torch.autograd.set_detect_anomaly(program_args.debug)
