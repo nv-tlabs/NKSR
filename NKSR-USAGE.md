@@ -120,6 +120,7 @@ Please see live example by running `python examples/recons_by_chunk.py`.
 <img src="assets/example_buda.png"  width="30%">
 
 Another example that reconstructs a Waymo sequence is at `python examples/recons_waymo.py`.
+
 <img src="assets/example_waymo.png"  width="30%">
 
 ### Dealing with Noise
