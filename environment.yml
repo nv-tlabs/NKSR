@@ -44,3 +44,4 @@ dependencies:
     - python-pycg[full]==0.5.2
     - randomname
     - pykdtree
+    - plyfile
