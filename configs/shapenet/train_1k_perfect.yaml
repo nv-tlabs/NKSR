@@ -1,0 +1,16 @@
+include_configs:
+  - data.yaml
+
+_shapenet_transforms:
+  - name: "SubsamplePointcloud"
+    args: { "N": 1000 }
+_shapenet_custom_name: "snet-perfect1k"
+
+name: 'shapenet/perfect_1k'
+
+voxel_size: 0.02
+kernel_dim: 16
+
+interpolator:
+  n_hidden: 2
+  hidden_dim: 32

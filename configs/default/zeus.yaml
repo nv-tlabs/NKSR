@@ -1,0 +1,16 @@
+# Specify this if you want to use wandb
+wandb:
+  user: ""
+  # Wandb checkpoint base directory
+  base: "./wandb/"
+  # Optional upload path
+  upload: "<REMOTE>:<PATH>"
+
+# Specify this if you want to use tensorboard
+tb:
+  # Checkpoint base directory
+  base: "./tb/"
+  upload: "<REMOTE>:<PATH>"
+
+# Path where inference results will be saved
+test_path: "./test/"

@@ -1,0 +1,12 @@
+_t10k_transforms: []
+_t10k_test_type: "med-n"
+
+test_dataset: Points2SurfDataset
+test_num_workers: 4
+test_kwargs:
+  base_path: "../data/points2surf"
+  dataset_name: "thingi10k"
+  type_name: ${_t10k_test_type}
+  transforms: ${_t10k_transforms}
+  split: "test"
+  random_seed: "fixed"

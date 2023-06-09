@@ -1,0 +1,12 @@
+_abc_transforms: []
+_abc_test_type: "var-n"
+
+test_dataset: Points2SurfDataset
+test_num_workers: 4
+test_kwargs:
+  base_path: "../data/points2surf"
+  dataset_name: "abc"
+  type_name: ${_abc_test_type}
+  transforms: ${_abc_transforms}
+  split: "test"
+  random_seed: "fixed"

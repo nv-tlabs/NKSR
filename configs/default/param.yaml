@@ -1,0 +1,32 @@
+# Visualize during test time
+visualize: false
+
+# Shuffle test set
+test_set_shuffle: false
+
+# Don't visualize mesh during training
+no_mesh_vis: false
+
+# Print running iterations for the solver
+solver_verbose: false
+
+# Print estimated input density during forward
+runtime_density: false
+
+# Visualize hash-tree and input during forward
+runtime_visualize: false
+
+# Print metrics during testing
+test_print_metrics: false
+
+# Up-sampling rate during mesh extraction
+test_n_upsample: 2
+
+# Use gt structure during testing (useful for overfit debugging)
+test_use_gt_structure: false
+
+# Test-time transform (for generalization experiments)
+test_transform: null
+
+# Load ckpt from URL.
+url: ''

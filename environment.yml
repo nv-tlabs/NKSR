@@ -1,0 +1,46 @@
+name: nksr
+channels:
+  - pyg
+  - nvidia/label/cuda-11.8.0
+  - pytorch
+  - conda-forge
+dependencies:
+  - python=3.10                   # Fix version for reproducibility
+  - pytorch=2.0.0                 # |
+  - pytorch-lightning=1.9.4       # |
+  - libprotobuf=3.19.6    # Protobuf
+  - protobuf=3.19.6       # | 4.x has weird linking bugs...
+  - tensorboard
+  - wandb
+  - pybind11
+  - pip
+  - gitpython
+  - ca-certificates
+  - certifi
+  - openssl
+  - cuda-toolkit
+  - cuda-cudart
+  - cuda-nvcc
+  - cuda-tools
+  - parameterized
+  - gcc_linux-64=11
+  - gxx_linux-64=11
+  - cuda-toolkit
+  - setuptools
+  - cmake
+  - ninja
+  - ipython
+  - matplotlib
+  - tqdm
+  - pyg
+  - rich
+  - pandas
+  - pytorch-scatter
+  - omegaconf
+  - flatten-dict
+  - pyntcloud
+  - pip:
+    - -f https://pycg.s3.ap-northeast-1.amazonaws.com/packages/index.html
+    - python-pycg[full]==0.5.2
+    - randomname
+    - pykdtree

@@ -1,0 +1,33 @@
+_shapenet_path: "../data/shapenet/onet"
+_shapenet_categories: ['02691156', '02828884', '02933112', '02958343', '03211117', '03001627', '03636649',
+                       '03691459', '04090263', '04256520', '04379243', '04401088', '04530566']
+_shapenet_custom_name: "shapenet"
+
+train_dataset: ShapeNetDataset
+train_val_num_workers: 4
+train_kwargs:
+  onet_base_path: ${_shapenet_path}
+  categories: ${_shapenet_categories}
+  transforms: ${_shapenet_transforms}
+  custom_name: ${_shapenet_custom_name}
+  split: "train"
+  random_seed: 0
+
+val_dataset: ShapeNetDataset
+val_kwargs:
+  onet_base_path: ${_shapenet_path}
+  categories: ${_shapenet_categories}
+  transforms: ${_shapenet_transforms}
+  custom_name: ${_shapenet_custom_name}
+  split: "val"
+  random_seed: "fixed"
+
+test_dataset: ShapeNetDataset
+test_num_workers: 4
+test_kwargs:
+  onet_base_path: ${_shapenet_path}
+  categories: ${_shapenet_categories}
+  transforms: ${_shapenet_transforms}
+  custom_name: ${_shapenet_custom_name}
+  split: "test"
+  random_seed: "fixed"

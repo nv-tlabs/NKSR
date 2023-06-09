@@ -1,0 +1,10 @@
+include_configs:
+  - data_train.yaml
+
+name: 'abc/full'
+
+adaptive_depth: 2
+voxel_size: 0.015
+
+udf:
+  enabled: true

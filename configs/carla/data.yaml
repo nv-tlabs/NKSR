@@ -1,0 +1,44 @@
+_carla_base_path: "../data/carla-lidar/dataset"
+_carla_input_path: "../data/carla-lidar/dataset-p1n2"
+
+_carla_drives: ['Town01-0', 'Town01-1', 'Town01-2',
+                'Town02-0', 'Town02-1', 'Town02-2',
+                'Town10-0', 'Town10-1', 'Town10-2', 'Town10-3', 'Town10-4']
+_carla_transforms:
+  - name: "Centralize"
+    args: {}
+
+supervision:
+  gt_type: "PointTSDFVolume"
+
+train_dataset: AVDataset
+train_val_num_workers: 4
+train_kwargs:
+  base_path: ${_carla_base_path}
+  input_path: ${_carla_input_path}
+  drives: ${_carla_drives}
+  transforms: ${_carla_transforms}
+  split: "train"
+  custom_name: "carla"
+  random_seed: 0
+
+val_dataset: AVDataset
+val_kwargs:
+  base_path: ${_carla_base_path}
+  input_path: ${_carla_input_path}
+  drives: ${_carla_drives}
+  transforms: ${_carla_transforms}
+  split: "val"
+  custom_name: "carla"
+  random_seed: "fixed"
+
+test_dataset: AVDataset
+test_num_workers: 4
+test_kwargs:
+  base_path: ${_carla_base_path}
+  input_path: ${_carla_input_path}
+  drives: ${_carla_drives}
+  transforms: ${_carla_transforms}
+  split: "test"
+  custom_name: "carla"
+  random_seed: "fixed"

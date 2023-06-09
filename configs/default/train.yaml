@@ -1,0 +1,90 @@
+include_configs:
+  - param.yaml
+
+name: 'untitled'
+model: nksr_net
+
+# -- Model parameters --
+
+feature: 'normal'
+geometry: 'kernel'
+voxel_size: 0.1
+kernel_dim: 4
+tree_depth: 4
+
+adaptive_depth: 1
+
+unet:
+  f_maps: 32
+
+udf:
+  enabled: false
+
+interpolator:
+  n_hidden: 2
+  hidden_dim: 16
+
+solver:
+  pos_weight: 10000.0
+  normal_weight: 10000.0
+
+# -- Training & Supervision parameters --
+
+batch_size: 1
+accumulate_grad_batches: 4
+
+optimizer: "Adam"
+learning_rate:
+  init: 1.0e-4
+  decay_mult: 0.7
+  decay_step: 50000
+  clip: 1.0e-6
+weight_decay: 0.0
+grad_clip: 0.5
+
+adaptive_policy:
+  method: "normal"
+  tau: 0.1
+
+supervision:
+  structure_weight: 20.0
+
+  gt_type: "PointTSDFVolume"
+
+  gt_surface:
+    value: 200.0
+    normal: 100.0
+    subsample: 50000
+
+  spatial:
+    weight: 300.0
+    reg_sdf_weight: 0.0
+    samplers:
+      - type: "uniform"
+        n_samples: 50000
+        expand: 1
+        expand_top: 3
+      - type: "band"
+        n_samples: 50000
+        eps: 0.5    # Times voxel size.
+    gt_type: "l1"   # or 'l1'
+    gt_soft: true
+    gt_band: 1.0        # times voxel size.
+    pd_transform: true
+    # (For AV Supervision)
+    vol_sup: true
+
+  udf:
+    weight: 150.0
+    samplers:
+      - type: "uniform"
+        n_samples: 80000
+        expand: 1
+        expand_top: 5
+      - type: "band"
+        n_samples: 20000
+        eps: 0.5    # Times voxel size.
+
+structure_schedule:
+  start_step: 2500
+  end_step: 10000

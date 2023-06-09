@@ -1,0 +1,6 @@
+include_configs:
+  - data_no_patch.yaml
+
+_carla_drives: ['Town03-0', 'Town03-1', 'Town03-2']
+test_kwargs:
+  split: "testall"

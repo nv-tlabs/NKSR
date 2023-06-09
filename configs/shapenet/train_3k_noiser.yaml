@@ -1,0 +1,18 @@
+include_configs:
+  - data.yaml
+
+_shapenet_transforms:
+  - name: "PointcloudNoise"
+    args: { "stddev": 0.025 }
+  - name: "SubsamplePointcloud"
+    args: { "N": 3000 }
+_shapenet_custom_name: "snet-noiser3k"
+
+name: 'shapenet/noiser_3k'
+
+voxel_size: 0.02
+kernel_dim: 16
+
+interpolator:
+  n_hidden: 2
+  hidden_dim: 32
