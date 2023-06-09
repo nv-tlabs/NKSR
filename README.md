@@ -81,7 +81,7 @@ Modify the contents of `zeus_config.yaml` as needed to include your `wandb` acco
 ### Training
 
 Data download links:
-- ShapeNet: Data is available [here](https://s3.eu-central-1.amazonaws.com/avg-projects/occupancy_networks/data/dataset_small_v1.1.zip). Put the extracted `onet` folder under `../data/shapenet`.
+- ShapeNet: Data is available [here](https://s3.eu-central-1.amazonaws.com/avg-projects/occupancy_networks/data/dataset_small_v1.1.zip) (taken from [Occupancy Networks](https://github.com/autonomousvision/occupancy_networks)). Put the extracted `onet` folder under `../data/shapenet`.
 - Points2Surf: Data is available [here](). We've used blensor to re-generate all the data following the original script in order to obtain input normals.
 - CARLA: Data is available [here]().
 
