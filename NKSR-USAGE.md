@@ -134,6 +134,8 @@ The two arguments should be used exclusively. Specifically they have the followi
 
 A visualization of these parameters can be seen below. The example ScanNet point cloud can be downloaded by calling `load_scannet_example()` in `examples/common.py`.
 
+**Warning**: Tuning `detail_level` and `voxel_size` is not supported if `chunk_size` is provided! You should scale your point cloud by a factor of `0.1/voxel_size` beforehand if you want to use the chunk mode.
+
 <img src="assets/example_scannet.png"  width="90%">
 
 ### Running on a device with Small Memory
