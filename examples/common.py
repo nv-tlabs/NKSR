@@ -48,7 +48,7 @@ def load_scannet_example():
 
     if not scannet_path.exists():
         exp.logger.info("Downloading assets...")
-        res = requests.get("{DOWNLOAD_URL}/scannet-rgbd.ply")
+        res = requests.get(f"{DOWNLOAD_URL}/scannet-rgbd.ply")
         with open(scannet_path, "wb") as f:
             f.write(res.content)
         exp.logger.info("Download finished!")
@@ -62,7 +62,7 @@ def load_waymo_example():
 
     if not waymo_path.exists():
         exp.logger.info("Downloading assets...")
-        res = requests.get("{DOWNLOAD_URL}/waymo-pcd.ply")
+        res = requests.get(f"{DOWNLOAD_URL}/waymo-pcd.ply")
         with open(waymo_path, "wb") as f:
             f.write(res.content)
         exp.logger.info("Download finished!")
