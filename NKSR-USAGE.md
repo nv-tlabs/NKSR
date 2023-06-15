@@ -136,4 +136,33 @@ A visualization of these parameters can be seen below. The example ScanNet point
 
 <img src="assets/example_scannet.png"  width="90%">
 
-> To prevent OOM, one last resort is to add `PYTORCH_NO_CUDA_MEMORY_CACHING=1` as environment variable!
+### Running on a device with Small Memory
+
+NKSR supports all operations on CPU, hence if you don't have GPU or your GPU only has small memory, there are two solutions:
+
+1. Run the entire pipeline on CPU. This could be achieved by changing the device from `cuda:0` to `cpu`.
+2. Run the reconstruction in chunk mode (where reconstructing each individual chunk will take a small amount of GPU memory), and extract the final mesh on CPU. Below is an example:
+
+```python
+device = torch.device("cuda:0")
+reconstructor = nksr.Reconstructor(device)
+reconstructor.chunk_tmp_device = torch.device("cpu")
+
+input_xyz = ...
+input_sensor = ...
+
+field = reconstructor.reconstruct(
+    input_xyz, sensor=input_sensor, ...,
+    chunk_size=50.0,        # This could be smaller
+    preprocess_fn=nksr.get_estimate_normal_preprocess_fn(64, 85.0)
+)
+
+# Put everything onto CPU.
+field.to_("cpu")
+reconstructor.network.to("cpu")
+
+# [WARNING] Slow operation...
+mesh = field.extract_dual_mesh(mise_iter=1)
+```
+
+To prevent CUDA OOM, one last resort is to add `PYTORCH_NO_CUDA_MEMORY_CACHING=1` as environment variable!

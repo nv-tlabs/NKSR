@@ -35,6 +35,11 @@ if __name__ == '__main__':
         # chunk_size=51.2,
         preprocess_fn=nksr.get_estimate_normal_preprocess_fn(64, 85.0)
     )
+    
+    # (Optional) Convert to CPU for mesh extraction
+    # field.to_("cpu")
+    # reconstructor.network.to("cpu")
+
     mesh = field.extract_dual_mesh(mise_iter=1)
     mesh = vis.mesh(mesh.v, mesh.f)
 
