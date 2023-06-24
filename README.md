@@ -24,6 +24,7 @@ For business inquiries, please visit our website and submit the form: [NVIDIA Re
 
 ## News
 
+- 2023-06-24 🔥: Want to build a mesh from an iPhone scan? Our friend [Phong Nguyen Ha](https://github.com/phongnhhn92) kindly shared his tutorial for doing this! Check it out [here](https://drive.google.com/drive/folders/1RESJ6w6DND4mh8V-YY0a3rvSfSR0dQdD?usp=sharing).
 - 2023-06-08: Code released!
 
 ## Environment setup
