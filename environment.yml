@@ -22,6 +22,7 @@ dependencies:
   - cuda-cudart
   - cuda-nvcc
   - cuda-tools
+  - libcusparse
   - parameterized
   - gcc_linux-64=11
   - gxx_linux-64=11
