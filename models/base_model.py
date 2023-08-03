@@ -319,10 +319,13 @@ class BaseModel(pl.LightningModule):
         if self.trainer.logger is None:
             return
         if isinstance(geom, o3d.geometry.TriangleMesh):
-            from pycg import render
-            mv_img = render.multiview_image(
-                [geom], viewport_shading='LIT' if draw_color else 'NORMAL', backend='filament')
-            self.log_image("mesh" + name, mv_img)
+            try:
+                from pycg import render
+                mv_img = render.multiview_image(
+                    [geom], viewport_shading='LIT' if draw_color else 'NORMAL', backend='filament')
+                self.log_image("mesh" + name, mv_img)
+            except Exception:
+                exp.logger.warning("Not able to render mesh during training.")
         else:
             raise NotImplementedError
 
