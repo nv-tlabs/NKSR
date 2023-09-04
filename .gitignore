@@ -171,3 +171,4 @@ zeus_config.yaml
 assets/buda.ply
 assets/waymo-pcd.ply
 assets/scannet.ply
+assets/las/
