@@ -1,0 +1,18 @@
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.7.0+cu128
+torchvision
+
+-f https://data.pyg.org/whl/torch-2.8.0+cu128.html
+torch-scatter
+
+
+-f https://pycg.s3.ap-northeast-1.amazonaws.com/packages/index.html
+python-pycg[full]==0.5.2
+
+numpy
+matplotlib
+
+ninja
+GitPython
+pyntcloud
+plyfile

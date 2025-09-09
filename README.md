@@ -24,7 +24,8 @@ For business inquiries, please visit our website and submit the form: [NVIDIA Re
 
 ## News
 
-- 2023-06-24 🔥: Want to build a mesh from an iPhone scan? Our friend [Phong Nguyen Ha](https://github.com/phongnhhn92) kindly shared his tutorial for doing this! Check it out [here](https://drive.google.com/drive/folders/1RESJ6w6DND4mh8V-YY0a3rvSfSR0dQdD?usp=sharing).
+- 2025-09-08: Due to the expiration of the pre-built wheels, we uploaded the full CUDA code so that users can compile on their own. The new wheel is compatible with PyTorch 2.7.0 and CUDA 12.8.
+- 2023-06-24: Want to build a mesh from an iPhone scan? Our friend [Phong Nguyen Ha](https://github.com/phongnhhn92) kindly shared his tutorial for doing this! Check it out [here](https://drive.google.com/drive/folders/1RESJ6w6DND4mh8V-YY0a3rvSfSR0dQdD?usp=sharing).
 - 2023-06-08: Code released!
 
 ## Environment setup
@@ -37,16 +38,13 @@ git clone git@github.com:nv-tlabs/nksr.git
 cd nksr
 
 # Create conda environment
-conda env create
-
-# Activate it
+conda env create -f environment.yml
 conda activate nksr
+pip install -r requirements.txt
 
-# Install NKSR
-pip install nksr -f https://nksr.huangjh.tech/whl/torch-2.0.0+cu118.html
+# Build NKSR
+pip install --no-build-isolation package/
 ```
-
-> For docker users, we suggest using a base image from [nvidia/cuda](https://hub.docker.com/r/nvidia/cuda) with tag `11.8.0-cudnn8-devel-ubuntu22.04`, and applying the above conda setup over it.
 
 ## Testing NKSR on your own data
 
