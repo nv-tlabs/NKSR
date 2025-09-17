@@ -14,5 +14,5 @@ dynamic = ["version"]
 dependencies = [
     "pykdtree",
     "torch",
-    "python-pycg==0.5.2",
+    "python-pycg",
 ]
