@@ -110,9 +110,9 @@ You can either infer using your own trained models or our pre-trained checkpoint
 
 ```bash
 # From pre-trained checkpoints
-python test.py configs/shapenet/train_3k_noise.yaml --url https://nksr.huangjh.tech/snet-n3k-wnormal.pth --exec udf.enabled=False
-python test.py configs/points2surf/train.yaml --url https://nksr.huangjh.tech/p2s.pth --include configs/points2surf/data_abc_test.yaml
-python test.py configs/carla/train.yaml --url https://nksr.huangjh.tech/carla.pth  --include configs/carla/data_no_patch.yaml
+python test.py configs/shapenet/train_3k_noise.yaml --url https://huggingface.co/heiwang1997/nksr-checkpoints/resolve/main/checkpoints/snet-n3k-wnormal.pth --exec udf.enabled=False
+python test.py configs/points2surf/train.yaml --url https://huggingface.co/heiwang1997/nksr-checkpoints/resolve/main/checkpoints/p2s.pth --include configs/points2surf/data_abc_test.yaml
+python test.py configs/carla/train.yaml --url https://huggingface.co/heiwang1997/nksr-checkpoints/resolve/main/checkpoints/carla.pth  --include configs/carla/data_no_patch.yaml
 
 # From your own trained models
 python test.py none --ckpt wdb:<WANDB_USER_NAME>/<WANDB_PROJECT>/<WANDB_RUN_ID>

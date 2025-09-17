@@ -1,24 +1,5 @@
 # NKSR Package Documentation
 
-## Pre-built wheels
-
-Our reconstruction algorithm is provided as an installable python package. **If you have already followed the README and set up the conda environment, NO additional installation steps are required.**
-If you want to install the `nksr` package into other python environments, we provide the following pre-built wheels. Note that only Linux is supported for now (Ubuntu >= 20.04 recommended).
-
-
-|                | Python | `cu113` | `cu116` | `cu117` | `cu118` |
-|----------------|---------|---------|---------|---------|---------|
-| PyTorch 2.0.0  | 3.8 - 3.11 |       |       | ✅      | ✅      |
-| PyTorch 1.13.0 | 3.7 - 3.11 |       | ✅     | ✅      |       |
-| PyTorch 1.12.0 | 3.7 - 3.10 | ✅ | ✅ |  |  |
-
-Use the following command to install `nksr`.
-```bash
-pip install -U nksr -f https://nksr.huangjh.tech/whl/torch-${TORCH_VERSION}+${CUDA_VERSION}.html
-```
-
-An example combination would be `TORCH_VERSION=2.0.0` and `CUDA_VERSION=cu118`.
-
 ## Data preparation
 
 NKSR takes point cloud as input. A point cloud is an array of 3D points that is internally represented as an Nx3 array, with each row storing the position (`xyz`) of the points.

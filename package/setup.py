@@ -77,13 +77,8 @@ def get_source_files(base_path):
 
 
 setup(
-    name='nksr',
     version=__version__,
-    description='Neural Kernel Surface Reconstruction',
-    author_email='huangjh.work@outlook.com',
     keywords=['nksr', '3d', 'reconstruction'],
-    python_requires='>=3.7',
-    install_requires=['pykdtree', 'torch', 'python-pycg==0.5.2'],
     ext_modules=[
         CUDAExtension(
             f'nksr._C',

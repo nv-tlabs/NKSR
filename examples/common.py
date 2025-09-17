@@ -13,7 +13,7 @@ from pycg import vis, exp
 from pyntcloud import PyntCloud
 
 
-DOWNLOAD_URL = "https://nksr.huangjh.tech"
+DOWNLOAD_URL = "https://huggingface.co/heiwang1997/nksr-checkpoints/resolve/main/data/"
 
 
 def load_bunny_example():

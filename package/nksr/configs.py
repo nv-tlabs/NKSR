@@ -16,7 +16,7 @@ from typing import Union, Mapping
 
 __configs__ = {
     'ks': {
-        'url': 'https://nksr.huangjh.tech/ks.pth',
+        'url': 'https://huggingface.co/heiwang1997/nksr-checkpoints/resolve/main/checkpoints/ks.pth',
         'feature': 'normal',
         'geometry': 'kernel',
         'voxel_size': 0.1,
@@ -41,7 +41,7 @@ __configs__ = {
     },
     'snet': {
         'parent': 'ks',
-        'url': 'https://nksr.huangjh.tech/snet-n3k-wnormal.pth',
+        'url': 'https://huggingface.co/heiwang1997/nksr-checkpoints/resolve/main/checkpoints/snet-n3k-wnormal.pth',
         'voxel_size': 0.02,
         'kernel_dim': 16,
         'adaptive_depth': 1,
@@ -56,7 +56,7 @@ __configs__ = {
     },
     'snet-wonormal': {
         'parent': 'snet',
-        'url': 'https://nksr.huangjh.tech/snet-n3k-wonormal.pth',
+        'url': 'https://huggingface.co/heiwang1997/nksr-checkpoints/resolve/main/checkpoints/snet-n3k-wonormal.pth',
         'feature': 'none'
     }
 }

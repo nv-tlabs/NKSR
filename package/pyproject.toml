@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=40.8.0", "wheel", "torch"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nksr"
+description = "Neural Kernel Surface Reconstruction"
+authors = [
+    {name = "The NKSR Authors", email = "jiahuih@nvidia.com"},
+]
+readme = "README.md"
+requires-python = ">=3.7"
+dynamic = ["version"]
+dependencies = [
+    "pykdtree",
+    "torch",
+    "python-pycg==0.5.2",
+]
