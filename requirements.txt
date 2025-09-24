@@ -5,7 +5,7 @@ torchvision
 -f https://data.pyg.org/whl/torch-2.8.0+cu128.html
 torch-scatter
 
-python-pycg
+python-pycg>=1.0.1
 
 numpy
 matplotlib
