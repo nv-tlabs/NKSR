@@ -81,8 +81,8 @@ Modify the contents of `zeus_config.yaml` as needed to include your `wandb` acco
 
 Data download links:
 - ShapeNet: Data is available [here](https://s3.eu-central-1.amazonaws.com/avg-projects/occupancy_networks/data/dataset_small_v1.1.zip) (taken from [Occupancy Networks](https://github.com/autonomousvision/occupancy_networks)). Put the extracted `onet` folder under `../data/shapenet`.
-- Points2Surf: Data is available [here](https://drive.google.com/file/d/1kWYbQpUx7MHvkdhQfO3D8qyv9Y_hVXrr/view?usp=sharing). We've used blensor to re-generate all the data following the original script in order to obtain input normals.
-- CARLA: Data is available [here](https://drive.google.com/file/d/1BFwExw7SRJaqHJ98pqqnR-k6g8XYMAqq/view?usp=sharing).
+- Points2Surf: Data is available [here](https://huggingface.co/datasets/heiwang1997/nksr-dataset/resolve/main/p2s-public.zip?download=true). We've used blensor to re-generate all the data following the original script in order to obtain input normals.
+- CARLA: Data is available [here](https://huggingface.co/datasets/heiwang1997/nksr-dataset/resolve/main/carla-public.zip?download=true).
 
 The main training script is `train.py`. We provide different config files for the different datasets we've benchmarked in our paper:
 ```bash
